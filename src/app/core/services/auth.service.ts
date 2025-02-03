@@ -3,43 +3,47 @@ import { Observable, of } from 'rxjs';
 import { MOCK_USER } from '../../mocks/auth.mock';
 
 @Injectable({
-  providedIn: 'root', // This makes AuthService available globally in the application
+  providedIn: 'root',
 })
 export class AuthService {
-  private useMock = true; // Toggle this to 'false' for using real authentication API
-  private readonly AUTH_TOKEN_KEY = 'auth_token'; // Key used to store the authentication token in localStorage
+  private useMock = true; // Set to 'false' for real authentication API
+  private readonly AUTH_TOKEN_KEY = 'auth_token'; // Local storage key for auth token
 
-  constructor() {}
-
-  // Simulate login with mock data (for demo purposes)
+  /** Simulates login using mock data */
   login(credentials: { email: string; password: string }): Observable<any> {
     if (this.useMock) {
-      // Mock logic: if the email and password match, simulate a successful login
+      // Simulate successful login if credentials match
       if (credentials.email === 'user@example.com' && credentials.password === 'password') {
-        localStorage.setItem(this.AUTH_TOKEN_KEY, 'mock_token'); // Store the mock token in localStorage
-        return of(MOCK_USER); // Return mock user data
-      } else {
-        return of(null); // Mock failed login
+        this.setToken('mock_token');
+        return of(MOCK_USER);
       }
+      return of(null); // Simulate failed login
     }
-    // In production, replace with real authentication logic
-    return of(null); // Return null as fallback for real authentication logic not yet implemented
+    return of(null); // Placeholder for real API call
   }
 
-  // Log the user out and remove the token from localStorage
+  /** Logs the user out and removes the token */
   logout(): void {
-    localStorage.removeItem(this.AUTH_TOKEN_KEY); // Remove the token from localStorage on logout
+    localStorage.removeItem(this.AUTH_TOKEN_KEY);
   }
 
-  // Check if the user is authenticated based on the presence of the token
+  /** Checks if the user is authenticated */
   isAuthenticated(): boolean {
-    // Check if the auth token exists in localStorage
-    return !!localStorage.getItem(this.AUTH_TOKEN_KEY); // Return true if token exists, else false
+    return !!this.getToken();
   }
 
-  // Retrieve the authentication token from localStorage
+  /** Retrieves the authentication token */
+  getToken(): string | null {
+    return localStorage.getItem(this.AUTH_TOKEN_KEY);
+  }
+
+  /** Retrieves the authentication token as an Observable */
   getAuthToken(): Observable<string | null> {
-    const token = localStorage.getItem(this.AUTH_TOKEN_KEY); // Retrieve the token
-    return of(token); // Return the token as an observable
+    return of(this.getToken()); // Wrap the token in an Observable
+  }
+
+  /** Stores the authentication token */
+  private setToken(token: string): void {
+    localStorage.setItem(this.AUTH_TOKEN_KEY, token);
   }
 }
