@@ -9,5 +9,5 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class DashboardComponent {
-  message: string = 'Hello, World! Welcome to the Dashboard!';
+  message = 'Hello, World! Welcome to the Dashboard!';
 }

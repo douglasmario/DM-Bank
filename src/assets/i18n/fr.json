@@ -1,0 +1,29 @@
+{
+  "LOGIN": {
+    "SIGN_IN": "Se connecter",
+    "DEMO_INFO": "Vous naviguez actuellement sur la démo de DM Bank. Pour vous connecter, utilisez les identifiants suivants :",
+    "EMAIL": "Email",
+    "PASSWORD": "Mot de passe",
+    "EMAIL_LABEL": "Adresse email",
+    "EMAIL_PLACEHOLDER": "utilisateur@exemple.com",
+    "EMAIL_ERROR": "Veuillez saisir une adresse email valide.",
+    "PASSWORD_LABEL": "Mot de passe",
+    "PASSWORD_PLACEHOLDER": "•••••",
+    "PASSWORD_ERROR": "Le mot de passe doit contenir au moins 6 caractères.",
+    "REMEMBER_ME": "Se souvenir de moi",
+    "FORGOT_PASSWORD": "Mot de passe oublié ?",
+    "SUBMIT_BUTTON": "Se connecter",
+    "LOGIN_ERROR": "{{ loginError }}"
+  },
+  "WELCOME": {
+    "WELCOME_TITLE": "Bienvenue sur la démo de DM Bank",
+    "WELCOME_DESCRIPTION_1": "Ceci est une application fictive conçue pour montrer mes compétences aux recruteurs. Elle démontre ma capacité à créer des applications Angular propres, organisées et fonctionnelles en utilisant des outils modernes et les meilleures pratiques.",
+    "WELCOME_DESCRIPTION_2": "N'hésitez pas à explorer et à interagir avec la démo. Si vous avez des questions ou des commentaires, contactez-moi !"
+  },
+  "ERRORS": {
+    "400": "Invalid request. Please check your input.",
+    "401": "Unauthorized. Please log in.",
+    "404": "Resource not found.",
+    "500": "Server error. Please try again later."
+  }
+}

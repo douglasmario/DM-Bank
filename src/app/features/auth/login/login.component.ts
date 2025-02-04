@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -25,12 +26,13 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatCheckboxModule,
     MatIconModule,
+    TranslateModule
   ],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginError: string | null = null;
-  hide: boolean = true;
+  hide = true;
 
   constructor(
     private fb: FormBuilder,

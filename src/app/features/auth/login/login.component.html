@@ -2,72 +2,71 @@
   <!-- Left Side: Login Form -->
   <div class="login-form">
     <div class="login-content">
-    <div class="form-header">
-      <h2>Sign in</h2>
-      <!-- Todo: Implement Sing up flow when BE is ready -->
-      <!--<p>Don't have an account? <a href="#">Sign up</a></p>-->
-    </div>
+      <div class="form-header">
+        <img src="assets/images/logo.svg" alt="DM Bank Logo" height="50px" />
+        <h2>{{ 'LOGIN.SIGN_IN' | translate }}</h2>
+        <!-- Todo: Implement Sing up flow when BE is ready -->
+        <!--<p>Don't have an account? <a href="#">Sign up</a></p>-->
+      </div>
 
       <div class="demo-info">
-        <span>You are currently browsing the DM Bank Demo. To log in, use the following credentials:</span>
-        <span><strong>Email:</strong> user&#64;example.com</span>
-        <span><strong>Password:</strong> password</span>
+        <span>{{ 'LOGIN.DEMO_INFO' | translate }}</span>
+        <span><strong>{{ 'LOGIN.EMAIL' | translate }}:</strong> user&#64;example.com</span>
+        <span><strong>{{ 'LOGIN.PASSWORD' | translate }}:</strong> password</span>
       </div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <!-- Email Input -->
-      <mat-form-field appearance="fill">
-        <mat-label>Email address</mat-label>
-        <input
-          matInput
-          id="email"
-          type="email"
-          formControlName="email"
-          placeholder="user&#64;example.com"
-        />
-        <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-          Please enter a valid email.
-        </mat-error>
-      </mat-form-field>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Email Input -->
+        <mat-form-field appearance="fill">
+          <mat-label>{{ 'LOGIN.EMAIL_LABEL' | translate }}</mat-label>
+          <input
+            matInput
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="{{ 'LOGIN.EMAIL_PLACEHOLDER' | translate }}"
+          />
+          <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            {{ 'LOGIN.EMAIL_ERROR' | translate }}
+          </mat-error>
+        </mat-form-field>
 
-      <!-- Password Input -->
-      <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input
-          matInput
-          [type]="hide ? 'password' : 'text'"
-          formControlName="password"
-          placeholder="•••••"
-        />
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Toggle password visibility'">
-          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        <!-- Password Input -->
+        <mat-form-field appearance="fill">
+          <mat-label>{{ 'LOGIN.PASSWORD_LABEL' | translate }}</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+            placeholder="{{ 'LOGIN.PASSWORD_PLACEHOLDER' | translate }}"
+          />
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Toggle password visibility'">
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            {{ 'LOGIN.PASSWORD_ERROR' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Remember Me & Forgot Password -->
+        <div class="login-options">
+          <mat-checkbox>{{ 'LOGIN.REMEMBER_ME' | translate }}</mat-checkbox>
+          <!-- Todo: Implement Forgot password flow when BE is ready -->
+          <!--<a href="#">{{ 'LOGIN.FORGOT_PASSWORD' | translate }}</a>-->
+        </div>
+
+        <!-- Submit Button -->
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+          {{ 'LOGIN.SUBMIT_BUTTON' | translate }}
         </button>
-        <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          Password must be at least 6 characters long.
-        </mat-error>
-      </mat-form-field>
 
-      <!-- Remember Me & Forgot Password -->
-      <div class="login-options">
-        <mat-checkbox>Remember me</mat-checkbox>
-        <!-- Todo: Implement Forgot password flow when BE is ready -->
-        <!--<a href="#">Forgot password?</a>-->
-      </div>
-
-      <!-- Submit Button -->
-      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
-        Sign in
-      </button>
-
-      <!-- Login Error Message -->
-      <div *ngIf="loginError" class="error-message">
-        {{ loginError }}
-      </div>
-    </form>
-
+        <!-- Login Error Message -->
+        <div *ngIf="loginError" class="error-message">
+          {{ loginError }}
+        </div>
+      </form>
     </div>
   </div>
-
 
   <!-- Right Side: Welcome Message -->
   <div class="welcome-message">
@@ -135,17 +134,12 @@
       <path d="M203.5 177C203.5 178.933 201.933 180.5 200 180.5C198.067 180.5 196.5 178.933 196.5 177C196.5 175.067 198.067 173.5 200 173.5C201.933 173.5 203.5 175.067 203.5 177Z" fill="white"/>
     </svg>
 
-
-
     <div class="content">
-    <h1>Welcome to DM Bank Demo</h1>
-    <p>
-      This is a mock application designed to showcase my skills to recruiters. It demonstrates my ability to create
-      clean, organized, and functional Angular applications using modern tools and best practices.
-    </p>
-    <p>
-      Feel free to explore and interact with the demo. If you have any questions or feedback, don't hesitate to reach out!
-    </p>
-</div>
+      <h1>{{ 'WELCOME.WELCOME_TITLE' | translate }}</h1>
+      <p>{{ 'WELCOME.WELCOME_DESCRIPTION_1' | translate }}</p>
+      <p>{{ 'WELCOME.WELCOME_DESCRIPTION_2' | translate }}</p>
+    </div>
   </div>
 </div>
+
+

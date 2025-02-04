@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { MOCK_USER } from '../../mocks/auth.mock';
+import {User} from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,17 +11,17 @@ export class AuthService {
   private readonly AUTH_TOKEN_KEY = 'auth_token'; // Local storage key for auth token
 
   /** Simulates login using mock data */
-  login(credentials: { email: string; password: string }): Observable<any> {
+  login(credentials: { email: string; password: string }): Observable<User | null> {
     if (this.useMock) {
-      // Simulate successful login if credentials match
       if (credentials.email === 'user@example.com' && credentials.password === 'password') {
         this.setToken('mock_token');
-        return of(MOCK_USER);
+        return of(MOCK_USER as User);
       }
-      return of(null); // Simulate failed login
+      return of(null);
     }
-    return of(null); // Placeholder for real API call
+    return of(null);
   }
+
 
   /** Logs the user out and removes the token */
   logout(): void {
