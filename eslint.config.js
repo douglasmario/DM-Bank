@@ -30,9 +30,7 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
-      "@angular-eslint/prefer-standalone": [
-        "error"
-      ]
+      "@angular-eslint/prefer-standalone": "warn",
     },
   },
   {
@@ -41,6 +39,12 @@ module.exports = tseslint.config(
       ...angular.configs.templateRecommended,
       ...angular.configs.templateAccessibility,
     ],
-    rules: {},
+    rules: {
+      "@angular-eslint/template/prefer-self-closing-tags": "warn",
+    },
+  },
+  {
+    ignores: [".angular"]
   }
+
 );
