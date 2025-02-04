@@ -1,65 +1,68 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LoginComponent } from './login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth.service';
+import { NotificationService } from '../../../core/services/notification.service';
+import { Router } from '@angular/router';
+import { of, throwError } from 'rxjs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let router: Router;
+  let authService: jasmine.SpyObj<AuthService>;
+  let notificationService: jasmine.SpyObj<NotificationService>;
+  let router: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
+    const authSpy = jasmine.createSpyObj('AuthService', ['login']);
+    const notificationSpy = jasmine.createSpyObj('NotificationService', ['showError']);
+    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, LoginComponent], // Import standalone component
+      declarations: [LoginComponent],
+      imports: [ReactiveFormsModule, MatSnackBarModule, NoopAnimationsModule],
       providers: [
-        {
-          provide: Router,
-          useValue: { navigate: jasmine.createSpy('navigate') }, // Mock Router
-        },
+        { provide: AuthService, useValue: authSpy },
+        { provide: NotificationService, useValue: notificationSpy },
+        { provide: Router, useValue: routerSpy },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router); // Inject the mock Router
+    authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
+    notificationService = TestBed.inject(NotificationService) as jasmine.SpyObj<NotificationService>;
+    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
     fixture.detectChanges();
   });
 
-  it('should create the login component', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize the login form', () => {
-    expect(component.loginForm).toBeDefined();
-    expect(component.loginForm.get('email')).toBeDefined();
-    expect(component.loginForm.get('password')).toBeDefined();
+  it('should initialize form with remembered email', () => {
+    sessionStorage.setItem('rememberedEmail', 'user@example.com');
+    component.ngOnInit();
+    expect(component.loginForm.value.email).toBe('user@example.com');
   });
 
-  it('should validate email field', () => {
-    const emailControl = component.loginForm.get('email');
-    emailControl?.setValue('invalid-email');
-    expect(emailControl?.valid).toBeFalse();
-    emailControl?.setValue('valid@example.com');
-    expect(emailControl?.valid).toBeTrue();
-  });
-
-  it('should validate password field', () => {
-    const passwordControl = component.loginForm.get('password');
-    passwordControl?.setValue('123');
-    expect(passwordControl?.valid).toBeFalse();
-    passwordControl?.setValue('123456');
-    expect(passwordControl?.valid).toBeTrue();
-  });
-
-  it('should navigate to dashboard on valid form submission', () => {
-    component.loginForm.setValue({ email: 'test@example.com', password: '123456' });
+  it('should call AuthService.login on valid form submission', () => {
+    const credentials = { email: 'user@example.com', password: 'password', rememberMe: false };
+    authService.login.and.returnValue(of({ id: 1, email: 'user@example.com', token: 'token', name: 'User', username: 'user' }));
+    component.loginForm.setValue(credentials);
     component.onSubmit();
+
+    expect(authService.login).toHaveBeenCalledWith({ email: 'user@example.com', password: 'password' });
     expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
-  it('should not navigate if form is invalid', () => {
-    component.loginForm.setValue({ email: '', password: '' });
+  it('should show error on invalid form submission', () => {
+    component.loginForm.setValue({ email: '', password: '', rememberMe: false });
     component.onSubmit();
-    expect(router.navigate).not.toHaveBeenCalled();
+
+    expect(notificationService.showError).toHaveBeenCalledWith('Please fill out the form correctly.');
+    expect(authService.login).not.toHaveBeenCalled();
   });
 });

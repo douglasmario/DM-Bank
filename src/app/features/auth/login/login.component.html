@@ -5,8 +5,7 @@
       <div class="form-header">
         <img src="assets/images/logo.svg" alt="DM Bank Logo" height="50px" />
         <h2>{{ 'LOGIN.SIGN_IN' | translate }}</h2>
-        <!-- Todo: Implement Sing up flow when BE is ready -->
-        <!--<p>Don't have an account? <a href="#">Sign up</a></p>-->
+        <!-- Todo: Implement sign-up flow when the backend is ready -->
       </div>
 
       <div class="demo-info">
@@ -51,19 +50,13 @@
         <!-- Remember Me & Forgot Password -->
         <div class="login-options">
           <mat-checkbox>{{ 'LOGIN.REMEMBER_ME' | translate }}</mat-checkbox>
-          <!-- Todo: Implement Forgot password flow when BE is ready -->
-          <!--<a href="#">{{ 'LOGIN.FORGOT_PASSWORD' | translate }}</a>-->
+          <!-- Todo: Implement forgot password flow when the backend is ready -->
         </div>
 
         <!-- Submit Button -->
         <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
           {{ 'LOGIN.SUBMIT_BUTTON' | translate }}
         </button>
-
-        <!-- Login Error Message -->
-        <div *ngIf="loginError" class="error-message">
-          {{ loginError }}
-        </div>
       </form>
     </div>
   </div>
@@ -133,7 +126,6 @@
       <path d="M173.5 177C173.5 178.933 171.933 180.5 170 180.5C168.067 180.5 166.5 178.933 166.5 177C166.5 175.067 168.067 173.5 170 173.5C171.933 173.5 173.5 175.067 173.5 177Z" fill="white"/>
       <path d="M203.5 177C203.5 178.933 201.933 180.5 200 180.5C198.067 180.5 196.5 178.933 196.5 177C196.5 175.067 198.067 173.5 200 173.5C201.933 173.5 203.5 175.067 203.5 177Z" fill="white"/>
     </svg>
-
     <div class="content">
       <h1>{{ 'WELCOME.WELCOME_TITLE' | translate }}</h1>
       <p>{{ 'WELCOME.WELCOME_DESCRIPTION_1' | translate }}</p>
@@ -141,5 +133,3 @@
     </div>
   </div>
 </div>
-
-
